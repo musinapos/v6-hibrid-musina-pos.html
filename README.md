@@ -1,1 +1,55 @@
-# v6-hibrid-musina-pos.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MUSINA BAR POS V6 HYBRID</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+body{background:#0f0f0f;height:100vh;overflow:hidden}
+#cover{position:fixed;inset:0;background:radial-gradient(circle at center,#2a2a2a 0%,#000 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:0.6s}
+#cover h1{color:#d4af37;font-size:32px;letter-spacing:3px;text-align:center}
+#cover p{color:#fff;margin-top:10px;letter-spacing:2px}
+#cover button{margin-top:30px;background:linear-gradient(90deg,#d4af37,#f0d060);border:none;padding:16px 40px;border-radius:30px;font-weight:900;font-size:16px;cursor:pointer}
+header{background:linear-gradient(90deg,#1a1a1a,#2d2d2d);color:#d4af37;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #d4af37}
+.main{display:flex;flex:1;height:calc(100vh - 50px)}
+.left{flex:1.2;background:#ffffff;display:flex;flex-direction:column;border-right:2px solid #e8dcc0}
+.cats{display:flex;gap:8px;padding:12px;overflow-x:auto;background:#fffcf5;border-bottom:1px solid #e8dcc0}
+.cat{white-space:nowrap;padding:8px 14px;border-radius:20px;border:1.5px solid #d4af37;color:#5a4a2a;font-size:13px;font-weight:600;cursor:pointer}
+.cat.active{background:#d4af37;color:#000}
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px;overflow-y:auto;flex:1;align-content:start}
+.pcard{background:#fff;border:1.5px solid #e8dcc0;border-radius:12px;padding:8px;position:relative}
+.pcard img{width:100%;height:90px;object-fit:contain;background:#f9f6f0;border-radius:8px}
+.pname{font-size:12px;font-weight:700;margin:6px 0 2px;color:#222}
+.pprice{color:#b8960c;font-weight:800;font-size:13px}
+.addbtn{position:absolute;top:6px;right:6px;background:#d4af37;color:#000;width:28px;height:28px;border-radius:50%;border:none;font-weight:900;font-size:16px;cursor:pointer}
+.cartbar{background:#fff;border-top:1px solid #e8dcc0;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.cashbtn{flex:1;background:linear-gradient(90deg,#d4af37,#f0d060);border:none;padding:14px;border-radius:10px;font-weight:900;font-size:15px;cursor:pointer;margin-left:12px}
+.right{flex:0.8;background:#1c1c1c;color:#fff;display:flex;flex-direction:column;max-width:380px;width:100%}
+.rhead{padding:14px;border-bottom:1px solid #333;display:flex;justify-content:space-between}
+.ritems{flex:1;overflow-y:auto;padding:12px}
+.ritem{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px;border-bottom:1px dashed #333;padding-bottom:8px}
+.rtotals{padding:14px;background:#252525;border-top:2px solid #d4af37}
+.row{display:flex;justify-content:space-between;margin:4px 0;font-size:13px}
+.row.total{font-size:16px;font-weight:800;color:#d4af37;margin-top:8px}
+@media(max-width:768px){.main{flex-direction:column}.right{max-width:100%;order:-1;max-height:40vh}}
+</style>
+</head>
+<body>
+<div id="cover">
+<h1>🍺 MUSINA<br>BAR & TAVERN</h1>
+<p>POS SYSTEM - HYBRID</p>
+<button onclick="document.getElementById('cover').style.transform='translateY(-100%)'">ENTER POS →</button>
+<p style="margin-top:20px;font-size:10px;color:#777">v6-hybrid • R3500</p>
+</div>
+<header><h1>🍺 MUSINA BAR</h1><span>V6 HYBRID</span></header>
+<div class="main">
+<div class="left">
+<div class="cats"><div class="cat active">All</div><div class="cat">Beers</div><div class="cat">Whisky</div><div class="cat">Wine</div><div class="cat">Cider</div></div>
+<div class="products" id="products"></div>
+<div class="cartbar"><div><small>Cart <b id="ccount">0 items</b></small><br><small>Sub: <b id="csub">R0</b></small></div><button class="cashbtn" onclick="checkout()">CASH SALE</button></div>
+</div>
+<div class="right">
+<div class="rhead"><b>RECEIPT</b><small style="color:#d4af37">#MSN-001</small></div>
+<div class="ritems" id="ritems"><p style="color:#777;text-align:center;margin-top:30px">No items yet</p></div>
+<div class="rtotals"><div class="row"><span>Subtotal</span><span id="tSub">R0.00</span></div><div class="row"><span>VAT 15%</span><span id="tVat">R0.00</span></div><div class="row total"><span>TOTAL</span><span id="tTotal">R0.00</span></div>

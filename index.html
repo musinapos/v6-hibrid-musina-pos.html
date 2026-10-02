@@ -3,139 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUSINA BAR POS - ORIGINAL STRUCTURE</title>
+<title>MUSINA BAR - STOCK EDITABLE</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#0f172a;color:#fff}
+body{background:#0f172a;color:#fff;height:100vh;display:flex;flex-direction:column}
 .header{background:#1e293b;padding:12px 15px;border-bottom:3px solid #22c55e;display:flex;justify-content:space-between;align-items:center}
 .header h1{color:#22c55e;font-size:18px}
-.header p{font-size:11px;opacity:0.7}
-.top-btns button{padding:8px 12px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-left:5px}
-.btn-r{background:#3b82f6;color:#fff}
-.btn-s{background:#f59e0b;color:#000}
-.main{display:flex;gap:10px;padding:10px}
-.left{flex:2.2;background:#1e293b;padding:12px;border-radius:10px}
-.right{flex:1;background:#1e293b;padding:12px;border-radius:10px;position:sticky;top:10px;height:fit-content;border:1px solid #22c55e}
-.cat{margin-bottom:15px}
-.cat h3{color:#22c55e;font-size:13px;margin-bottom:8px;border-bottom:1px solid #334155;padding-bottom:4px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
-.item{background:#334155;padding:12px 5px;border-radius:8px;text-align:center;cursor:pointer;border:1px solid #475569}
-.item:hover{background:#22c55e;color:#000;transform:scale(1.03)}
-.item b{font-size:12px;display:block}
-.item span{font-size:11px}
-.cart-item{display:flex;justify-content:space-between;padding:8px;background:#0f172a;margin:5px 0;border-radius:6px;font-size:13px;border:1px solid #334155}
-.total-box{background:#22c55e;color:#000;padding:14px;border-radius:8px;text-align:center;font-weight:bold;font-size:20px;margin-top:10px}
-.btn{width:100%;padding:12px;margin-top:7px;border:none;border-radius:7px;font-weight:bold;cursor:pointer}
-.pay{background:#22c55e;color:#000}
-.clear{background:#ef4444;color:#fff}
-.print{background:#8b5cf6;color:#fff}
-input,select{width:100%;padding:10px;margin:5px 0;border-radius:6px;border:1px solid #334155;background:#0f172a;color:#fff}
-.change{padding:9px;background:#0f172a;border:1px dashed #22c55e;border-radius:6px;text-align:center;font-weight:bold;margin-top:5px}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:99;padding:15px;overflow:auto}
-.modal-box{background:#1e293b;padding:20px;border-radius:12px;max-width:650px;margin:20px auto;border:2px solid #22c55e}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{padding:7px;border:1px solid #334155;font-size:12px;text-align:left}
-th{background:#334155;color:#22c55e}
+.cat-bar{background:#1e293b;padding:8px 10px;display:flex;gap:8px;overflow-x:auto;border-bottom:2px solid #334155}
+.cat-bar button{padding:10px 18px;border:none;border-radius:20px;font-weight:bold;cursor:pointer;background:#334155;color:#fff;white-space:nowrap}
+.cat-bar button.active{background:#22c55e;color:#000}
+.main{flex:1;display:flex;gap:10px;padding:10px;overflow:hidden}
+.left{flex:2.3;background:#1e293b;padding:12px;border-radius:10px;overflow-y:auto}
+.right{flex:1;background:#1e293b;padding:12px;border-radius:10px;display:flex;flex-direction:column;border:2px solid #22c55e;overflow:hidden}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:10px}
+.item{background:#334155;padding:16px 5px;border-radius:10px;text-align:center;cursor:pointer;border:1px solid #475569;position:relative}
+.item:hover{background:#22c55e;color:#000}
+.item b{font-size:13px;display:block}.item span{font-size:11px}
+.item small{font-size:9px;opacity:0.7;display:block;margin-top:3px}
+.item.hidden{display:none}
+.item.low{border:2px solid #ef4444}
+.cart-list{flex:1;overflow-y:auto;margin:8px 0}
+.cart-item{display:flex;justify-content:space-between;padding:8px;background:#0f172a;margin:5px 0;border-radius:6px;font-size:13px}
+.total-box{background:#22c55e;color:#000;padding:14px;border-radius:8px;text-align:center;font-weight:bold;font-size:22px}
+.btn{width:100%;padding:12px;margin-top:6px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+.pay{background:#22c55e;color:#000}.print-side{background:#fff;color:#000}.clear{background:#ef4444;color:#fff}
+input,select{width:100%;padding:10px;margin:4px 0;border-radius:6px;border:1px solid #334155;background:#0f172a;color:#fff}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:99;padding:10px;overflow:auto}
+.modal-box{background:#1e293b;padding:18px;border-radius:12px;max-width:700px;margin:15px auto;border:2px solid #22c55e}
+table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:7px;border:1px solid #334155;font-size:12px}th{background:#334155;color:#22c55e}
+.edit-input{padding:6px!important;margin:0!important;width:60px!important;background:#0f172a!important}
+.add-form{background:#0f172a;padding:12px;border-radius:8px;margin-bottom:15px;border:1px dashed #22c55e;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.add-form h3{grid-column:span 2;color:#22c55e}
 </style>
 </head>
 <body>
 <div class="header">
-<div><h1>MUSINA BAR TAVERN - POS</h1><p>Original Structure - Receipt On Side - Standard - V6</p></div>
-<div class="top-btns">
-<button class="btn-r" onclick="openReports()">REPORTS</button>
-<button class="btn-s" onclick="openStock()">STOCK</button>
+<div><h1>MUSINA BAR TAVERN</h1></div>
+<div>
+<button style="padding:8px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-weight:bold" onclick="openReports()">REPORTS</button>
+<button style="padding:8px 14px;background:#f59e0b;color:#000;border:none;border-radius:6px;font-weight:bold;margin-left:5px" onclick="openStock()">STOCK MANAGER</button>
 </div>
+</div>
+
+<div class="cat-bar">
+<button class="active" onclick="filterCat('all',this)">ALL</button>
+<button onclick="filterCat('beer',this)">BEERS</button>
+<button onclick="filterCat('cider',this)">CIDERS</button>
+<button onclick="filterCat('spirit',this)">TOTS</button>
+<button onclick="filterCat('soft',this)">FOOD</button>
 </div>
 
 <div class="main">
-<!-- LEFT - PRODUCTS -->
-<div class="left">
-<div class="cat"><h3>BEERS</h3><div class="grid">
-<div class="item" onclick="add('Castle Lite',25)"><b>Castle Lite</b><span>R25</span></div>
-<div class="item" onclick="add('Black Label',28)"><b>Black Label</b><span>R28</span></div>
-<div class="item" onclick="add('Heineken',30)"><b>Heineken</b><span>R30</span></div>
-<div class="item" onclick="add('Corona',35)"><b>Corona</b><span>R35</span></div>
-<div class="item" onclick="add('Stella',32)"><b>Stella</b><span>R32</span></div>
-<div class="item" onclick="add('Amstel',27)"><b>Amstel</b><span>R27</span></div>
-</div></div>
-
-<div class="cat"><h3>CIDERS</h3><div class="grid">
-<div class="item" onclick="add('Hunters Dry',32)"><b>Hunters Dry</b><span>R32</span></div>
-<div class="item" onclick="add('Savanna',32)"><b>Savanna</b><span>R32</span></div>
-<div class="item" onclick="add('Brutal Fruit',28)"><b>Brutal Fruit</b><span>R28</span></div>
-<div class="item" onclick="add('Spin',30)"><b>Spin</b><span>R30</span></div>
-</div></div>
-
-<div class="cat"><h3>TOTS</h3><div class="grid">
-<div class="item" onclick="add('Brandy Tot',20)"><b>Brandy Tot</b><span>R20</span></div>
-<div class="item" onclick="add('Vodka Tot',20)"><b>Vodka Tot</b><span>R20</span></div>
-<div class="item" onclick="add('Whiskey',25)"><b>Whiskey</b><span>R25</span></div>
-<div class="item" onclick="add('Gin Tonic',35)"><b>Gin Tonic</b><span>R35</span></div>
-</div></div>
-
-<div class="cat"><h3>SOFT & FOOD</h3><div class="grid">
-<div class="item" onclick="add('Coke',15)"><b>Coke</b><span>R15</span></div>
-<div class="item" onclick="add('Water',10)"><b>Water</b><span>R10</span></div>
-<div class="item" onclick="add('Chips',20)"><b>Chips</b><span>R20</span></div>
-<div class="item" onclick="add('Meat',50)"><b>Meat</b><span>R50</span></div>
-</div></div>
-</div>
-
-<!-- RIGHT - RECEIPT ALWAYS ON SIDE -->
+<div class="left"><div class="grid" id="productGrid"></div></div>
 <div class="right">
-<h3 style="color:#22c55e;border-bottom:1px solid #334155;padding-bottom:6px">RECEIPT / CART - <span id="count">0</span></h3>
-<div id="cart" style="min-height:100px;margin-top:8px">Cart empty - Click items on left</div>
+<h3 style="color:#22c55e;border-bottom:1px solid #334155;padding-bottom:6px">RECEIPT - <span id="count">0</span></h3>
+<div class="cart-list" id="cart">Empty</div>
 <div class="total-box" id="total">TOTAL: R0</div>
-<label style="font-size:11px;margin-top:8px;display:block">PAY METHOD</label>
 <select id="method"><option>Cash</option><option>Card</option><option>E-Wallet</option></select>
-<input type="number" id="paid" placeholder="Amount Paid" oninput="change()">
-<div class="change" id="change">Change: R0</div>
-<button class="btn pay" onclick="pay()">PAY & PRINT</button>
-<button class="btn print" onclick="reprint()">RE-PRINT LAST</button>
+<input type="number" id="paid" placeholder="Amount Paid" oninput="changeCalc()">
+<div style="padding:9px;background:#0f172a;border:1px dashed #22c55e;border-radius:6px;text-align:center;font-weight:bold" id="change">Change: R0</div>
+<button class="btn pay" onclick="pay()">PAY</button>
+<button class="btn print-side" onclick="printReceipt()">PRINT</button>
 <button class="btn clear" onclick="clearCart()">CLEAR</button>
-<div style="margin-top:10px;padding:8px;background:#0f172a;border-radius:6px;font-size:11px">
-Today: <b id="tSale">R0</b> | Trans: <b id="tCount">0</b>
-</div>
+<div style="margin-top:8px;padding:7px;background:#0f172a;border-radius:5px;font-size:11px">Today: <b id="tSale">R0</b> | <b id="tCount">0</b></div>
 </div>
 </div>
 
-<div class="modal" id="repModal">
-<div class="modal-box">
-<h2 style="color:#22c55e">REPORTS - ALL SALES</h2>
-<p id="repDate" style="font-size:11px;opacity:0.6"></p>
-<div style="max-height:300px;overflow:auto;margin-top:10px">
-<table><tr><th>Time</th><th>Items</th><th>Total</th><th>Method</th></tr><tbody id="repBody"></tbody></table>
-</div>
-<h3 style="margin-top:12px;color:#22c55e">Total: <span id="repTotal">R0</span></h3>
-<button class="btn clear" onclick="closeRep()">CLOSE</button>
-<button class="btn print" onclick="clearRep()">CLEAR ALL</button>
-</div>
-</div>
+<div class="modal" id="repModal"><div class="modal-box"><h2 style="color:#22c55e">REPORTS</h2><div style="max-height:300px;overflow:auto"><table><tr><th>Time</th><th>Items</th><th>Total</th></tr><tbody id="repBody"></tbody></table></div><h3 style="margin-top:10px;color:#22c55e">Total: <span id="repTotal">R0</span></h3><button class="btn clear" onclick="closeRep()">CLOSE</button></div></div>
 
 <div class="modal" id="stockModal">
-<div class="modal-box">
-<h2 style="color:#f59e0b">STOCK</h2>
-<table><tr><th>Product</th><th>Price</th><th>Stock</th></tr><tbody id="stockBody"></tbody></table>
-<button class="btn clear" onclick="closeStock()">CLOSE</button>
+<div class="modal-box" style="max-width:750px">
+<h2 style="color:#f59e0b">STOCK MANAGER - EDIT EVERYTHING HERE</h2>
+
+<div class="add-form">
+<h3>➕ ADD NEW BEER / PRODUCT</h3>
+<input id="newName" placeholder="Name e.g. Black Label">
+<input id="newPrice" type="number" placeholder="Price e.g. 28">
+<select id="newCat"><option value="beer">BEER</option><option value="cider">CIDER</option><option value="spirit">TOTS/SPIRITS</option><option value="soft">FOOD/SOFT</option></select>
+<input id="newStock" type="number" placeholder="Qty e.g. 50 bottles">
+<button class="btn pay" style="grid-column:span 2" onclick="addNewProduct()">ADD PRODUCT</button>
+</div>
+
+<p style="font-size:11px;opacity:0.7;margin-bottom:8px">You can edit price, add received stock, delete. Low stock = red border</p>
+<div style="max-height:350px;overflow:auto">
+<table><tr><th>Product</th><th>Cat</th><th>Price</th><th>Stock Qty</th><th>Add Stock</th><th>Action</th></tr><tbody id="stockBody"></tbody></table>
+</div>
+<button class="btn clear" onclick="closeStock()" style="margin-top:12px">CLOSE & SAVE</button>
 </div>
 </div>
 
 <script>
+let defaultProducts=[
+{name:'Castle Lite',price:25,cat:'beer',stock:48},
+{name:'Black Label',price:28,cat:'beer',stock:50},
+{name:'Heineken',price:30,cat:'beer',stock:30},
+{name:'Corona',price:35,cat:'beer',stock:20},
+{name:'Hunters Dry',price:32,cat:'cider',stock:40},
+{name:'Savanna',price:32,cat:'cider',stock:40},
+{name:'Brutal Fruit',price:28,cat:'cider',stock:25},
+{name:'Brandy Tot',price:20,cat:'spirit',stock:100},
+{name:'Vodka Tot',price:20,cat:'spirit',stock:100},
+{name:'Whiskey',price:25,cat:'spirit',stock:80},
+{name:'Coke',price:15,cat:'soft',stock:60},
+{name:'Chips',price:20,cat:'soft',stock:30}
+];
+let products=JSON.parse(localStorage.getItem('musina_products')||'null')||defaultProducts;
 let cart=[];let sales=JSON.parse(localStorage.getItem('musina_sales')||'[]');
-function add(n,p){let f=cart.find(i=>i.n===n);if(f){f.q++}else{cart.push({n,p,q:1})}draw()}
-function draw(){let h='';let tot=0;let c=0;cart.forEach((it,i)=>{let line=it.p*it.q;tot+=line;c+=it.q;h+=`<div class="cart-item"><span>${it.n} x${it.q}</span><span>R${line} <span onclick="rem(${i})" style="color:red;cursor:pointer;margin-left:8px">X</span></span></div>`});document.getElementById('cart').innerHTML=h||'Cart empty - Click items on left';document.getElementById('total').innerText='TOTAL: R'+tot;document.getElementById('count').innerText=c+' items';change();today()}
-function rem(i){cart.splice(i,1);draw()}
-function clearCart(){cart=[];document.getElementById('paid').value='';draw()}
-function change(){let t=cart.reduce((s,i)=>s+i.p*i.q,0);let pd=parseFloat(document.getElementById('paid').value)||0;document.getElementById('change').innerText='Change: R'+(pd-t)}
-function pay(){if(cart.length==0){alert('Cart empty');return}let t=cart.reduce((s,i)=>s+i.p*i.q,0);let m=document.getElementById('method').value;let pd=parseFloat(document.getElementById('paid').value)||0;if(m=='Cash'&&pd<t){alert('Paid less!');return}let sale={time:new Date().toLocaleString(),items:cart.map(i=>i.n+' x'+i.q).join(', '),total:t,method:m};sales.push(sale);localStorage.setItem('musina_sales',JSON.stringify(sales));localStorage.setItem('musina_last',JSON.stringify(sale));alert('SUCCESS!\nTotal R'+t+'\nChange R'+(pd-t));clearCart()}
-function today(){let td=new Date().toDateString();let ts=sales.filter(s=>new Date(s.time).toDateString()==td);let sum=ts.reduce((a,b)=>a+b.total,0);document.getElementById('tSale').innerText='R'+sum;document.getElementById('tCount').innerText=ts.length}
-function openReports(){document.getElementById('repModal').style.display='block';document.getElementById('repDate').innerText=new Date().toDateString();let h='';sales.slice().reverse().forEach(s=>{h+=`<tr><td>${s.time}</td><td>${s.items}</td><td>R${s.total}</td><td>${s.method}</td></tr>`});document.getElementById('repBody').innerHTML=h||'<tr><td colspan=4>No sales</td></tr>';document.getElementById('repTotal').innerText='R'+sales.reduce((a,b)=>a+b.total,0)}
+
+function saveProducts(){localStorage.setItem('musina_products',JSON.stringify(products));renderProducts();renderStockTable()}
+
+function renderProducts(){
+let grid=document.getElementById('productGrid');
+let h='';products.forEach(p=>{
+let lowClass=p.stock<=5?' low':'';
+h+=`<div class="item ${p.cat}${lowClass}" onclick="addToCart('${p.name}')">
+<b>${p.name}</b><span>R${p.price}</span><small>Stock: ${p.stock}</small>
+</div>`
+});grid.innerHTML=h;
+}
+
+function filterCat(cat,btn){
+document.querySelectorAll('.cat-bar button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+document.querySelectorAll('.item').forEach(it=>{if(cat==='all')it.style.display='block';else it.classList.contains(cat)?it.style.display='block':it.style.display='none'})
+}
+
+function addToCart(name){
+let prod=products.find(p=>p.name===name);
+if(prod.stock<=0){alert(name+' OUT OF STOCK! Go to STOCK MANAGER and add received stock!');return}
+let f=cart.find(i=>i.name===name);if(f){if(f.qty>=prod.stock){alert('Only '+prod.stock+' in stock!');return}f.qty++}else{cart.push({name,price:prod.price,qty:1})}
+drawCart();
+}
+
+function drawCart(){
+let h='';let tot=0;let c=0;
+cart.forEach((it,i)=>{let line=it.price*it.qty;tot+=line;c+=it.qty;h+=`<div class="cart-item"><span>${it.name} x${it.qty}</span><span>R${line} <span onclick="rem(${i})" style="color:#ef4444;cursor:pointer;margin-left:8px">X</span></span></div>`});
+document.getElementById('cart').innerHTML=h||'Empty';document.getElementById('total').innerText='TOTAL: R'+tot;document.getElementById('count').innerText=c;changeCalc();todaySales();
+}
+
+function rem(i){cart.splice(i,1);drawCart()}
+function clearCart(){cart=[];document.getElementById('paid').value='';drawCart()}
+function changeCalc(){let t=cart.reduce((s,i)=>s+i.price*i.qty,0);let pd=parseFloat(document.getElementById('paid').value)||0;document.getElementById('change').innerText='Change: R'+(pd-t)}
+function pay(){
+if(cart.length==0){alert('Cart empty');return}
+let t=cart.reduce((s,i)=>s+i.price*i.qty,0);let m=document.getElementById('method').value;let pd=parseFloat(document.getElementById('paid').value)||0;
+if(m=='Cash'&&pd<t){alert('Paid less!');return}
+cart.forEach(it=>{let p=products.find(x=>x.name===it.name);if(p)p.stock-=it.qty});
+saveProducts();
+let sale={time:new Date().toLocaleString(),items:cart.map(i=>i.name+' x'+i.qty).join(', '),total:t,method:m};
+sales.push(sale);localStorage.setItem('musina_sales',JSON.stringify(sales));localStorage.setItem('musina_last',JSON.stringify(sale));
+alert('SUCCESS R'+t+'\nStock updated!');clearCart();
+}
+function todaySales(){let td=new Date().toDateString();let ts=sales.filter(s=>new Date(s.time).toDateString()==td);let sum=ts.reduce((a,b)=>a+b.total,0);document.getElementById('tSale').innerText='R'+sum;document.getElementById('tCount').innerText=ts.length}
+
+function openStock(){document.getElementById('stockModal').style.display='block';renderStockTable()}
+function closeStock(){document.getElementById('stockModal').style.display='none';renderProducts()}
+function renderStockTable(){
+let h='';products.forEach((p,i)=>{
+h+=`<tr>
+<td><input value="${p.name}" onchange="editName(${i},this.value)" style="width:110px;padding:4px;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:4px"></td>
+<td>${p.cat.toUpperCase()}</td>
+<td><input type="number" value="${p.price}" onchange="editPrice(${i},this.value)" style="width:55px;padding:4px;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:4px"></td>
+<td style="${p.stock<=5?'color:#ef4444;font-weight:bold':''}">${p.stock}</td>
+<td><div style="display:flex;gap:3px"><input id="add_${i}" type="number" placeholder="+Qty" style="width:55px;padding:4px"><button onclick="addStock(${i})" style="padding:4px 8px;background:#22c55e;border:none;border-radius:4px;cursor:pointer;font-weight:bold">+ADD</button></div></td>
+<td><button onclick="deleteProduct(${i})" style="padding:4px 8px;background:#ef4444;color:#fff;border:none;border-radius:4px;cursor:pointer">DEL</button></td>
+</tr>`
+});document.getElementById('stockBody').innerHTML=h;
+}
+function editPrice(i,val){products[i].price=parseFloat(val)||products[i].price;saveProducts()}
+function editName(i,val){products[i].name=val;saveProducts()}
+function addStock(i){let qty=parseFloat(document.getElementById('add_'+i).value)||0;if(qty<=0){alert('Enter quantity');return}products[i].stock+=qty;saveProducts();alert('Added '+qty+' to '+products[i].name+'\nNew stock: '+products[i].stock)}
+function deleteProduct(i){if(confirm('Delete '+products[i].name+'?')){products.splice(i,1);saveProducts()}}
+function addNewProduct(){
+let name=document.getElementById('newName').value.trim();let price=parseFloat(document.getElementById('newPrice').value);let cat=document.getElementById('newCat').value;let stock=parseFloat(document.getElementById('newStock').value)||0;
+if(!name||!price){alert('Enter name and price!');return}
+products.push({name,price,cat,stock});saveProducts();
+document.getElementById('newName').value='';document.getElementById('newPrice').value='';document.getElementById('newStock').value='';
+alert(name+' ADDED! Price R'+price+' Cat '+cat+' Stock '+stock);
+}
+function openReports(){document.getElementById('repModal').style.display='block';let h='';sales.slice().reverse().forEach(s=>{h+=`<tr><td>${s.time}</td><td>${s.items}</td><td>R${s.total}</td></tr>`});document.getElementById('repBody').innerHTML=h||'<tr><td colspan=3>No sales</td></tr>';document.getElementById('repTotal').innerText='R'+sales.reduce((a,b)=>a+b.total,0)}
 function closeRep(){document.getElementById('repModal').style.display='none'}
-function openStock(){document.getElementById('stockModal').style.display='block';let list=[['Castle Lite',25],['Black Label',28],['Heineken',30],['Hunters',32],['Brandy Tot',20]];let h='';list.forEach(x=>{h+=`<tr><td>${x[0]}</td><td>R${x[1]}</td><td style="color:#22c55e">In Stock</td></tr>`});document.getElementById('stockBody').innerHTML=h}
-function closeStock(){document.getElementById('stockModal').style.display='none'}
-function reprint(){let l=JSON.parse(localStorage.getItem('musina_last')||'null');if(!l){alert('No last sale');return}alert('RE-PRINT\n'+l.time+'\n'+l.items+'\nR'+l.total)}
-function clearRep(){if(confirm('Clear all sales?')){sales=[];localStorage.removeItem('musina_sales');today();openReports()}}
-today();
+function printReceipt(){let last=JSON.parse(localStorage.getItem('musina_last')||'null');let content=cart.length>0?cart.map(i=>i.name+' x'+i.qty+' = R'+(i.price*i.qty)).join('\n')+'\nTOTAL: '+document.getElementById('total').innerText:last?last.time+'\n'+last.items+'\nR'+last.total:'Empty';let w=window.open('','','width=300,height=600');w.document.write('<pre>MUSINA BAR\n'+new Date().toLocaleString()+'\n----------------\n'+content+'\n----------------\nThank You!\n</pre>');w.document.close();w.print();w.close()}
+
+renderProducts();todaySales();drawCart();
 </script>
 </body>
 </html>
